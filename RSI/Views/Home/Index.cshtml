@@ -3,29 +3,41 @@
 }
 
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>Comments on cats</h1>
+    <p class="lead">A super secure website for all your comments on cats</p>
+
 </div>
 
 <div class="row">
     <div class="col-md-4">
-        <h2>Getting started</h2>
+        <h2>Cat </h2>
         <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
+            <img src="https://i.pinimg.com/564x/c3/0e/9b/c30e9bbaef3532e9b5b8964024f25a71.jpg" height="370" width="350">
+            Comment:<br />
+            @using (Html.BeginForm("SaveComment", "Comments"))
+            {
+
+                <textarea name='comment' id='comment'></textarea><br />
+
+                <input type='hidden' name='articleid' id='articleid' value='<? echo $_GET["id"]; ?>' />
+
+                <input type='submit' value='Submit' />
+            }
         </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        <h2>Cats</h2>
+        <p>
+            <img src="https://i.pinimg.com/564x/46/43/ed/4643eda4e1be4273721a76a370b90346.jpg" height="370" width="350">
+            Comments:<br />
+        </p>
+        <table border="1" height="200" width="350" align="left" bgcolor="blue">     
+            <tr>
+                <td>
+             
+                </td>
+            </tr>
+           
+        </table>
     </div>
 </div>
