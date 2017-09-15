@@ -9,8 +9,8 @@ namespace RSI.ViewModels
 {
     public class CommentViewModel
     {
-        public Comments Comment{ get; set; }
-        public List<Commenters> Commenters { get; set; }
+        public List<Comment> Comments{ get; set; }
+        public List<Commenter> Commenters { get; set; }
     }
 
 }

@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web.Routing;
+using RSI.ViewModels;
 
 namespace RSI.Controllers
 {
@@ -19,15 +20,25 @@ namespace RSI.Controllers
             return Content("id=" + id);
         }
 
-        public ActionResult Index(int? pageIndex, string sortby)
+        /*public ActionResult Index(int? pageIndex, string sortby)
         {
             if (!pageIndex.HasValue)
                 pageIndex = 1;
             if (String.IsNullOrWhiteSpace(sortby))
                 sortby = "Name";
             return Content(String.Format("pageIndex={0}&sortby={1)",pageIndex, sortby));
-        }
+        }*/
 
+            public ActionResult Index()
+        {
+            var model = new CommentViewModel();
+            return PartialView("Index", model);
+        }
+         public ActionResult ListComments()
+         {
+                    var comments = new List<CommentTable>();
+                        return View(comments);
+         }
         public string SaveComment(string comment)
         {
             SqlConnection connection = new SqlConnection("Data Source=(LocalDb)\\MSSQLLocalDB;AttachDbFilename=\"\\\\agsdatw01\\users\\morgan.smith\\Documents\\Visual Studio 2015\\Projects\\RSI\\RSI\\App_Data\\aspnet-RSI-20170831032957.mdf\";Initial Catalog=aspnet-RSI-20170831032957;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework");
@@ -38,7 +49,10 @@ namespace RSI.Controllers
             command.CommandType = CommandType.Text;
             command.Connection = connection;
             command.ExecuteNonQuery();
-            return"Homepage";
+            RedirectToAction("ListComment");
+            throw new NotImplementedException();
         }
+
+    
     }
 }

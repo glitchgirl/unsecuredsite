@@ -1,8 +1,15 @@
-﻿@Model Vidly.Models.Comments
+﻿@model RSI.ViewModels.CommentViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Model</h2>
+<h2></h2>
+
+    @{
+        foreach (var comment in Model.Comments) {
+            @Html.Raw(comment);
+        }
+     }
+
 

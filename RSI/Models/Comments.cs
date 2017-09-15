@@ -5,7 +5,7 @@ using System.Web;
 
 namespace RSI.Models
 {
-    public class Comments
+    public class Comment
     {
         public string CommentText { get; set; }
         public string UserId { get; set; }
