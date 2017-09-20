@@ -8,7 +8,7 @@
 
     @{
         foreach (var comment in Model.Comments) {
-            @Html.Raw(comment);
+            @Html.Raw("<div>" + comment.CommentText + "</div>");
         }
      }
 
