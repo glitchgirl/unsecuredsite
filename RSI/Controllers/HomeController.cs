@@ -13,7 +13,7 @@ namespace RSI.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Comments");
         }
 
         public ActionResult About()

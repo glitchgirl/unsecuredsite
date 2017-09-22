@@ -14,42 +14,49 @@ namespace RSI.Controllers
     public class CommentsController : Controller
     {
         // GET: Comments
-            public ActionResult Index()
+        public ActionResult Index()
+        {
+            var model = new CommentViewModel();
+            model.Comments = GetComments();
+            return View(model);
+        }
+
+        [HttpPost, ValidateInput(false)]
+        public void SaveComment(string comment)
+        {
+            SqlConnection connection = new SqlConnection("Data Source=(LocalDb)\\MSSQLLocalDB;AttachDbFilename=\"\\\\agsdatw01\\users\\morgan.smith\\Documents\\Visual Studio 2015\\Projects\\RSI\\RSI\\App_Data\\aspnet-RSI-20170831032957.mdf\";Initial Catalog=aspnet-RSI-20170831032957;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework");
+            connection.Open();
+
+            SqlCommand command = new SqlCommand();
+            command.CommandText = string.Format("INSERT INTO CommentTable VALUES('{0}')",comment);
+            command.CommandType = CommandType.Text;
+            command.Connection = connection;
+            command.ExecuteNonQuery();
+            connection.Close();
+
+            Response.Redirect("Index");
+            //RedirectToAction("Index");
+        }
+
+        public List<Comment> GetComments()
+        {
+            var comments = new List<Comment>();
+
+            SqlConnection connection = new SqlConnection("Data Source=(LocalDb)\\MSSQLLocalDB;AttachDbFilename=\"\\\\agsdatw01\\users\\morgan.smith\\Documents\\Visual Studio 2015\\Projects\\RSI\\RSI\\App_Data\\aspnet-RSI-20170831032957.mdf\";Initial Catalog=aspnet-RSI-20170831032957;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework");
+            connection.Open();
+
+            SqlCommand command = new SqlCommand("SELECT CommentText FROM CommentTable", connection);
+
+            using (SqlDataReader rdr = command.ExecuteReader())
             {
-                var model = new CommentViewModel();
-                return PartialView("Index", model);
-            }
-
-        
-
-            public string SaveComment(string comment)
-            {
-                SqlConnection connection = new SqlConnection("Data Source=(LocalDb)\\MSSQLLocalDB;AttachDbFilename=\"\\\\agsdatw01\\users\\morgan.smith\\Documents\\Visual Studio 2015\\Projects\\RSI\\RSI\\App_Data\\aspnet-RSI-20170831032957.mdf\";Initial Catalog=aspnet-RSI-20170831032957;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework");
-                connection.Open();
-                SqlCommand command = new SqlCommand();
-                command.CommandText = string.Format("INSERT INTO CommentTable VALUES('{0}')",comment);
-                command.CommandType = CommandType.Text;
-                command.Connection = connection;
-                command.ExecuteNonQuery();
-                RedirectToAction("Index");
-                return "saved";
-            }
-
-            public ActionResult ListComments()
-             {
-
-                SqlCommand command = new SqlCommand();
-                SqlDataReader reader = command.ExecuteReader();
-                
-                while (reader.Read())
+                while (rdr.Read())
                 {
-                var commentos = new List<string>();
-                string comment = (string)reader["CommentText"];
-                commentos.Add(comment);
+                    comments.Add(new Comment { CommentText = (string)rdr["CommentText"] });
                 }
-               reader.Close();
-               return View("Index");
-               
-             }
+            }
+
+            connection.Close();
+            return comments;
+        }
     }
 }
