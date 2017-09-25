@@ -1,16 +1,42 @@
-﻿@{
-    ViewBag.Title = "Contact";
+﻿@model RSI.ViewModels.CommentViewModel
+
+@{
+    ViewBag.Title = "Safe comments";
 }
-<h2>@ViewBag.Title</h2>
 
+<div class="jumbotron">
+    <h1>Comments on cats</h1>
+    <p class="lead">An actually secure website for all your comments on cats</p>
 
-<address>
-    1450 Greene St,<br />
-    Augusta, GA 30901<br />
-    <abbr title="Phone"></abbr>
-    (706) 250-5400
-</address>
+</div>
 
-<address>
-    <strong>Me:</strong>   <a href="mailto:morgan.smith@ruralsourcing.com">morgan.smith@ruralsourcing.com</a><br />
-</address>
+<div class="row">
+    <div class="col-md-4">
+        <h2>Cat </h2>
+        <p>
+            <img src="https://i.pinimg.com/564x/bf/12/10/bf12108f776a94e78613e405c985e6bf.jpg" height="370" width="350">
+            Comment:<br />
+            @*@using (Html.BeginForm("SaveComment", "Comments", FormMethod.Post))*@
+            @*{*@
+
+                <textarea name='comment' id='comment'></textarea><br />
+
+                <input type='hidden' name='articleid' id='articleid' value='<? echo $_GET["id"]; ?>' />
+
+                <input type='submit' value='Submit' />
+            @*}*@
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h2>Cats</h2>
+        <p>
+            <img src="https://i.pinimg.com/564x/c5/25/7d/c5257dda19c79f23251e1c35a7e93d5c.jpg" height="370" width="350">
+            Comments:<br />
+
+            @*@foreach (var comment in Model.Comments)
+            {
+                @Html.Raw("<div>" + comment.CommentText + "</div>");
+            }*@
+        </p>
+    </div>
+</div>
